@@ -6,7 +6,7 @@ import TaskComponent from '../pure/task';
 
 
 
-const TaskListComponent = () => {
+const TaskListComponent = ({task, complete}) => {
     
     const defaultTask1 = new Task('example1', 'default description1', false, levels.NORMAL)
     const defaultTask2 = new Task('example2', 'default description2', true, levels.URGENTE)
@@ -25,8 +25,31 @@ const TaskListComponent = () => {
             console.log('taskList component is goin to unmount....')
         };
     }, [tasks]);
-    const changeState= (id) =>{
-        console.log('cambiar estado de una tarea')
+
+    function completeTask(task){
+        console.log('complete this task:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks[index].completed = !tempTasks[index].completed;
+        setTasks(tempTasks);
+    }
+
+
+
+    function deleteTasks(task){
+        console.log('complete this task:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks.splice(index,1);
+        setTasks(tempTasks);        
+    }
+    
+    function addTask(task){
+        console.log('complete this task:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks.push(task);
+        setTasks(tempTasks);
     }
 
     return (
@@ -53,20 +76,23 @@ const TaskListComponent = () => {
                                     return (
                                             <TaskComponent 
                                                 key={index}
-                                                task={task}>
+                                                task={task}
+                                                complete={completeTask}
+                                                remove={deleteTasks}
+                                                >
                                             </TaskComponent>
                                         )
                                     }
                                 )}
                                 </tbody>
                             </table>
-                            <TaskForm></TaskForm>
+                         
                         </div>
                     </div>
-                </div>
+                </div>   
+                <TaskForm add={addTask}></TaskForm>
         </div>
     );
 };
-
 
 export default TaskListComponent;

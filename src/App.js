@@ -1,4 +1,4 @@
-
+import './App.css'
 // import Saludos from './components/pure/saludos';
 // import SaludosF from './components/pure/saludosF';
 
