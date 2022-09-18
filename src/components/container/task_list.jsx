@@ -19,10 +19,13 @@ const TaskListComponent = ({task, complete}) => {
     
 
     useEffect(() => {
-        console.log('task estate modified')
+        console.log('task estate modified');
+        setTimeout(()=> {
         setloading(false);
+        }, 2000);
+
         return () => {
-            console.log('taskList component is goin to unmount....')
+            console.log('taskList component is goin to unmount....');
         };
     }, [tasks]);
 
@@ -49,6 +52,12 @@ const TaskListComponent = ({task, complete}) => {
         const tempTasks = [...tasks];
         tempTasks.push(task);
         setTasks(tempTasks);
+    }
+
+    const loadingStyle = {
+        color:'grey',
+        fontSice:'20px',
+        fontWeight:'bold'
     }
 
     const Table = () => {
@@ -101,7 +110,7 @@ const TaskListComponent = ({task, complete}) => {
                             </h5>
                         </div>
                         <div className='card-body' data-msb-perfect-scrollbar='true' style={{position : 'relative', height:'400px'}}>
-                            {tasksTable}
+                            {loadin ? (<p style={loadingStyle}>cargando....</p>):tasksTable}
                         </div>
                     </div>
                 </div>   
